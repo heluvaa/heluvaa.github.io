@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ekstraktor Cookie cURL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        h2 {
+            text-align: center;
+            color: #ffa500;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            background-color: #1e1e1e;
+            color: #fff;
+            border: 1px solid #444;
+            border-radius: 4px;
+            padding: 10px;
+            margin-top: 5px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        #btnExtract {
+            background-color: #ff8c00;
+            color: #000;
+        }
+        #btnExtract:hover {
+            background-color: #e07b00;
+        }
+        #btnClear {
+            background-color: #d9534f;
+            color: #fff;
+        }
+        #btnClear:hover {
+            background-color: #c9302c;
+        }
+        #btnCopy {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+        #btnCopy:hover {
+            background-color: #45a049;
+        }
+        .output-container {
+            position: relative;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Ekstraktor Cookie cURL</h2>
+    
+    <label for="curlInput">Tempel (Paste) cURL di sini:</label>
+    <textarea id="curlInput" placeholder="Contoh: curl 'https://arction.app/api/state' -H 'cookie: cn_session=...' ..."></textarea>
+    
+    <div class="button-group">
+        <button id="btnExtract" onclick="extractCookie()">Ekstrak Cookie</button>
+        <button id="btnClear" onclick="clearFields()">Clear</button>
+    </div>
+
+    <label for="cookieOutput">Hasil Cookie:</label>
+    <div class="output-container">
+        <textarea id="cookieOutput" readonly placeholder="Hasil cookie akan muncul di sini..."></textarea>
+    </div>
+    
+    <div class="button-group" style="margin-top: 10px;">
+        <button id="btnCopy" onclick="copyToClipboard()">Copy Cookie</button>
+    </div>
+
+    <script>
+        function extractCookie() {
+            const curlText = document.getElementById('curlInput').value;
+            const outputBox = document.getElementById('cookieOutput');
+            
+            // Regex untuk mendeteksi cookie dari string cURL (mendukung cn_session atau format umum)
+            const regex = /cookie:\s*['"]?(.*?)['"]?\b/i;
+            const match = curlText.match(regex);
+            
+            if (match && match[1]) {
+                let cleanCookie = match[1].trim().replace(/^['"]|['"]$/g, '');
+                outputBox.value = cleanCookie;
+            } else {
+                // Alternatif pencarian jika format header menggunakan argumen terpisah
+                const altRegex = /-H\s+['"].*?cookie:\s*(.*?)['"]/i;
+                const altMatch = curlText.match(altRegex);
+                if (altMatch && altMatch[1]) {
+                    outputBox.value = altMatch[1].trim().replace(/^['"]|['"]$/g, '');
+                } else {
+                    alert('Cookie tidak ditemukan dalam teks cURL tersebut!');
+                    outputBox.value = '';
+                }
+            }
+        }
+
+        function clearFields() {
+            document.getElementById('curlInput').value = '';
+            document.getElementById('cookieOutput').value = '';
+        }
+
+        function copyToClipboard() {
+            const outputBox = document.getElementById('cookieOutput');
+            if (!outputBox.value) {
+                alert('Tidak ada cookie yang bisa disalin!');
+                return;
+            }
+            
+            outputBox.select();
+            outputBox.setSelectionRange(0, 99999); // Untuk perangkat seluler
+            
+            navigator.clipboard.writeText(outputBox.value).then(() => {
+                alert('Cookie berhasil disalin ke clipboard!');
+            }).catch(err => {
+                alert('Gagal menyalin cookie.');
+            });
+        }
+    </script>
+
+</body>
+</html>
+            
