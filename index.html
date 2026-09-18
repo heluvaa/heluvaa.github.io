@@ -26,7 +26,7 @@
         }
         textarea {
             width: 100%;
-            height: 150px;
+            height: 160px;
             background-color: #1e1e1e;
             color: #fff;
             border: 1px solid #444;
@@ -36,6 +36,7 @@
             resize: vertical;
             box-sizing: border-box;
             font-family: monospace;
+            font-size: 12px;
         }
         .mode-selector {
             margin-top: 15px;
@@ -88,10 +89,10 @@
 </head>
 <body>
 
-    <h2>Bulk cURL Extractor (Banyak Sekaligus)</h2>
+    <h2>Bulk cURL Extractor (Multi-line Support)</h2>
     
-    <label for="curlInput">Tempel (Paste) Banyak cURL di sini (1 cURL per baris / pisah enter):</label>
-    <textarea id="curlInput" placeholder="Paste cURL akun 1&#10;Paste cURL akun 2&#10;Paste cURL akun 3..."></textarea>
+    <label for="curlInput">Tempel (Paste) cURL di sini (bisa banyak sekaligus):</label>
+    <textarea id="curlInput" placeholder="Tempel cURL lengkap dengan baris ' \ ' nya di sini..."></textarea>
     
     <div class="mode-selector">
         <label style="margin: 0;">Pilih Mode Ekstrak:</label>
@@ -122,26 +123,23 @@
                 return;
             }
 
-            // Memisahkan teks berdasarkan baris baru (enter)
-            const lines = curlText.split(/\r?\n/);
+            // Memisahkan berdasarkan kata 'curl ' agar setiap blok cURL terdeteksi secara utuh meskipun ada banyak baris ke bawah
+            const curlBlocks = curlText.split(/(?=curl\s)/i);
             let results = [];
 
-            lines.forEach(line => {
-                if (!line.trim()) return; // Lewati baris kosong
+            curlBlocks.forEach(block => {
+                if (!block.trim()) return;
 
                 if (mode === 'cookie') {
-                    const regex = /cookie:\s*['"]?(.*?)['"]?\b/i;
-                    let match = line.match(regex);
-                    if (!match) {
-                        const altRegex = /-H\s+['"].*?cookie:\s*(.*?)['"]/i;
-                        match = line.match(altRegex);
-                    }
+                    // Regex untuk mendeteksi cookie meskipun terpotong garis miring / enter
+                    const regex = /cookie:\s*['"]?([^'"]+)['"]?/i;
+                    const match = block.match(regex);
                     if (match && match[1]) {
-                        results.push(match[1].trim().replace(/^['"]|['"]$/g, ''));
+                        results.push(match[1].trim());
                     }
                 } else if (mode === 'token') {
                     const regex = /Bearer\s+(eyJ[a-zA-Z0-9\-_.]+\.[a-zA-Z0-9\-_.]+\.[a-zA-Z0-9\-_.]+)/i;
-                    const match = line.match(regex);
+                    const match = block.match(regex);
                     if (match && match[1]) {
                         results.push(match[1]);
                     }
@@ -151,7 +149,7 @@
             if (results.length > 0) {
                 outputBox.value = results.join('\n');
             } else {
-                alert('Tidak ada data yang berhasil diekstrak. Pastikan format cURL benar!');
+                alert('Tidak ada data yang berhasil diekstrak. Pastikan format cURL valid!');
                 outputBox.value = '';
             }
         }
@@ -172,7 +170,7 @@
             outputBox.setSelectionRange(0, 99999);
             
             navigator.clipboard.writeText(outputBox.value).then(() => {
-                alert('Semua hasil berhasil disalin ke clipboard! Bisa langsung dipaste ke cookie.txt');
+                alert('Semua hasil berhasil disalin ke clipboard!');
             }).catch(err => {
                 alert('Gagal menyalin data.');
             });
@@ -180,5 +178,4 @@
     </script>
 
 </body>
-  </html>
-  
+</html>
