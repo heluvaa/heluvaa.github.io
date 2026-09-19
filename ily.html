@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Spesial Buat Kamu ✨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #ff758c; --secondary: #ff7eb3; --text: #ffffff; --glass: rgba(255, 255, 255, 0.1); --glass-border: rgba(255, 255, 255, 0.2); }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow-x: hidden; font-family: "Noto Sans", sans-serif; background-color: #0f0c29; color: var(--text); }
+        
+        /* Background & Orbs */
+        .bg-gradient {
+            position: fixed; inset: 0; z-index: -1;
+            background-color: #0f0c29;
+            background-image: radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+                              radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
+                              radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+        }
+        .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; z-index: 0; animation: float 10s infinite ease-in-out; }
+        .orb-1 { width: 300px; height: 300px; background: #7b2cbf; top: -50px; left: -50px; }
+        .orb-2 { width: 400px; height: 400px; background: #ff006e; bottom: -100px; right: -50px; animation-delay: -5s; }
+        @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(30px, 50px); } }
+
+        /* Container / Card Style */
+        .container {
+            position: relative; width: 88%; max-width: 380px; margin: 40px auto; box-sizing: border-box;
+            background: var(--glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border); border-radius: 28px; padding: 30px 20px;
+            text-align: center; box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+            z-index: 10;
+        }
+
+        /* Foto Utama / Profil */
+        .photo-frame {
+            width: 110px; height: 110px; margin: 0 auto 20px;
+            border-radius: 50%; padding: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 0 20px rgba(255, 117, 140, 0.6);
+            animation: floatLogo 3s ease-in-out infinite;
+        }
+        .photo-frame img {
+            width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+        }
+        @keyframes floatLogo { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+        /* Galeri Banyak Foto (Grid Kecil di Bawah) */
+        .photo-gallery {
+            display: flex; justify-content: center; gap: 10px; margin: 20px 0; flex-wrap: wrap;
+        }
+        .gallery-item {
+            width: 65px; height: 65px; border-radius: 15px; overflow: hidden;
+            border: 2px solid var(--glass-border); box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+        .gallery-item:hover { transform: scale(1.1); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        h2 { font-size: 1.5rem; margin: 0 0 10px 0; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        p { font-size: 0.95rem; color: rgba(255,255,255,0.9); line-height: 1.5; margin-bottom: 20px; }
+
+        /* Tombol Interaktif */
+        .btn-custom {
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            color: white; border: none; padding: 12px 25px; border-radius: 50px;
+            font-weight: 600; font-size: 0.95rem; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255,117,140,0.4); transition: transform 0.2s;
+        }
+        .btn-custom:active { transform: scale(0.95); }
+
+        #particle-canvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+    </style>
+</head>
+<body>
+
+    <div class="bg-gradient"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="container">
+        <!-- Foto Utama di Atas -->
+        <div class="photo-frame">
+            <img src="foto1.jpg" alt="Foto Utama" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300'">
+        </div>
+
+        <h2 id="card-title">Hai Kamu! ✨</h2>
+        <p id="card-message">
+            Semesta terasa jauh lebih indah saat ada kamu. Terima kasih sudah jadi bagian terbaik dalam hari-hariku.
+        </p>
+
+        <!-- Tambahan Galeri Banyak Foto -->
+        <div class="photo-gallery">
+            <div class="gallery-item"><img src="foto1.jpg" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300'"></div>
+            <div class="gallery-item"><img src="foto2.jpg" onerror="this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300'"></div>
+            <div class="gallery-item"><img src="foto3.jpg" onerror="this.src='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=300'"></div>
+        </div>
+
+        <button class="btn-custom" onclick="bukaKejutan()">Buka Pesan Lainnya 💌</button>
+    </div>
+
+    <script>
+        // Efek Partikel Bintang
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Star {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.alpha = Math.random();
+            }
+            update() {
+                this.x += this.speedX; this.y += this.speedY;
+                if (this.x < 0) this.x = canvas.width; if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height; if (this.y > canvas.height) this.y = 0;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+            }
+        }
+        for (let i = 0; i < 100; i++) particles.push(new Star());
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Ganti teks saat tombol ditekan
+        function bukaKejutan() {
+            document.getElementById('card-title').innerHTML = "I Love You! 💖";
+            document.getElementById('card-message').innerHTML = "Semoga setiap kenangan indah kita terus bertambah setiap harinya. Tetap jadi orang hebat ya!";
+        }
+    </script>
+</body>
+</html>
