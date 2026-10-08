@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="55%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#00ffa3"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0v48" fill="none" stroke="#151a26" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="glow" cx="18%" cy="0%" r="75%">
+      <stop offset="0%" stop-color="#00ffa3" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#00ffa3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="95%" cy="100%" r="65%">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#a855f7" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow3" cx="80%" cy="5%" r="50%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#05060a"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+  <rect width="1200" height="630" fill="url(#glow3)"/>
+  <rect x="0" y="0" width="1200" height="5" fill="url(#g)"/>
+
+  <!-- Kartu kiri: identitas -->
+  <g font-family="monospace">
+    <text x="88" y="196" font-size="19" letter-spacing="7" fill="#7d8494">PORTFOLIO 2026</text>
+    <text x="86" y="222" font-size="19" fill="#7d8494" opacity="0">.</text>
+  </g>
+
+  <g font-family="sans-serif" font-weight="bold" letter-spacing="-2">
+    <text x="84" y="316" font-size="82" fill="#eef1f7">Gaizka Nazaryo</text>
+    <text x="84" y="408" font-size="82" fill="url(#g)">Widiansyah</text>
+  </g>
+
+  <g font-family="monospace">
+    <text x="88" y="472" font-size="25" fill="#00ffa3">SMK TKJ graduate building AI products</text>
+  </g>
+
+  <rect x="88" y="512" width="68" height="3" fill="url(#g)"/>
+
+  <g font-family="sans-serif" font-size="21" fill="#7d8494">
+    <text x="88" y="566">AI Mastery ID&#160;&#160;·&#160;&#160;Anatomi App</text>
+  </g>
+
+  <g font-family="monospace" font-size="21" fill="#7d8494" text-anchor="end">
+    <text x="1112" y="566">heluvaa.github.io</text>
+  </g>
+
+  <!-- Monogram kanan -->
+  <g transform="translate(1000,120)">
+    <rect x="0" y="0" width="120" height="120" rx="26" fill="none" stroke="#1b1f2b" stroke-width="2"/>
+    <text x="60" y="62" text-anchor="middle" dominant-baseline="central"
+          font-family="monospace" font-size="46" font-weight="bold"
+          letter-spacing="2" fill="url(#g)">GN</text>
+  </g>
+  <g stroke="#00ffa3" stroke-width="3" stroke-linecap="round">
+    <path d="M960 284V254h30" fill="none"/>
+    <path d="M1140 56V28h-30" fill="none"/>
+  </g>
+</svg>

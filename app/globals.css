@@ -1,0 +1,390 @@
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN TOKENS — dark, minimalist, satu aksen neon
+   ============================================================ */
+@theme {
+  --color-bg: #05060a;
+  --color-bg-soft: #07080d;
+  --color-panel: #0b0d14;
+  --color-panel-2: #0e1119;
+  --color-line: #1b1f2b;
+  --color-line-2: #262c3c;
+
+  --color-ink: #eef1f7;
+  --color-ink-soft: #c3c9d6;
+  --color-muted: #7d8494;
+
+  --color-neon: #00ffa3;
+  --color-neon-dim: #00c97f;
+  --color-cy: #38bdf8;
+  --color-vi: #a855f7;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-jb), ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --radius-card: 18px;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-neon) 28%, transparent);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-neon);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Scrollbar halus, tidak norak */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-line-2);
+    border-radius: 99px;
+    border: 3px solid var(--color-bg);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-neon-dim);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* ============================================================
+   LAYOUT PRIMITIVES
+   ============================================================ */
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 1160px;
+    margin-inline: auto;
+    padding-inline: 22px;
+  }
+
+  /* Ruang napas vertikal antar-section */
+  .section {
+    padding-block: clamp(72px, 12vw, 140px);
+  }
+
+  .mono-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .grad-text {
+    background-image: linear-gradient(
+      100deg,
+      var(--color-cy) 0%,
+      var(--color-vi) 55%,
+      var(--color-neon) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ---- Panel / kartu ---- */
+  .panel {
+    position: relative;
+    background: linear-gradient(
+      180deg,
+      var(--color-panel) 0%,
+      var(--color-bg-soft) 100%
+    );
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    transition:
+      border-color 0.35s ease,
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.35s ease;
+  }
+
+  .panel-hover:hover {
+    border-color: color-mix(in srgb, var(--color-neon) 45%, var(--color-line));
+    transform: translateY(-4px);
+    box-shadow:
+      0 18px 50px -22px color-mix(in srgb, var(--color-neon) 40%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--color-neon) 12%, transparent);
+  }
+
+  /* ---- Chip / badge ---- */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    line-height: 1;
+    padding: 7px 11px;
+    border-radius: 999px;
+    border: 1px solid var(--color-line);
+    background: var(--color-panel-2);
+    color: var(--color-ink-soft);
+    white-space: nowrap;
+  }
+
+  .chip-accent {
+    border-color: color-mix(in srgb, var(--color-neon) 30%, var(--color-line));
+    color: var(--color-neon);
+  }
+
+  /* ---- Tombol ---- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    padding: 13px 22px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.25s ease,
+      background-color 0.25s ease,
+      border-color 0.25s ease,
+      color 0.25s ease;
+  }
+
+  .btn:active {
+    transform: scale(0.975);
+  }
+
+  .btn-primary {
+    background: var(--color-neon);
+    color: #03150e;
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-neon) 45%, transparent);
+  }
+  .btn-primary:hover {
+    background: #4dffbe;
+    box-shadow: 0 12px 40px -12px
+      color-mix(in srgb, var(--color-neon) 65%, transparent);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    background: var(--color-panel);
+    border-color: var(--color-line-2);
+    color: var(--color-ink);
+  }
+  .btn-ghost:hover {
+    border-color: color-mix(in srgb, var(--color-neon) 50%, var(--color-line));
+    color: var(--color-neon);
+    transform: translateY(-2px);
+  }
+
+  /* ---- Link kecil dengan panah ---- */
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--color-neon);
+    font-family: var(--font-mono);
+  }
+  .link-arrow svg {
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .link-arrow:hover svg {
+    transform: translate(3px, -3px);
+  }
+}
+
+/* ============================================================
+   UTILITIES — grid background, glow, marquee, reveal
+   ============================================================ */
+@layer utilities {
+  .grid-bg {
+    background-image:
+      linear-gradient(
+        to right,
+        color-mix(in srgb, var(--color-line) 70%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--color-line) 70%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      #000 5%,
+      transparent 75%
+    );
+    mask-image: radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      #000 5%,
+      transparent 75%
+    );
+  }
+
+  .glow-neon {
+    background: radial-gradient(
+      circle at center,
+      color-mix(in srgb, var(--color-neon) 22%, transparent) 0%,
+      transparent 70%
+    );
+    filter: blur(60px);
+  }
+
+  .glow-violet {
+    background: radial-gradient(
+      circle at center,
+      color-mix(in srgb, var(--color-vi) 20%, transparent) 0%,
+      transparent 70%
+    );
+    filter: blur(70px);
+  }
+
+  .hairline {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-line-2) 20%,
+      var(--color-line-2) 80%,
+      transparent
+    );
+  }
+
+  /* Marquee halus */
+  @keyframes alya-marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+  .marquee-mask {
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 12%,
+      #000 88%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 12%,
+      #000 88%,
+      transparent
+    );
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: alya-marquee 38s linear infinite;
+  }
+  .marquee-mask:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  /* Titik status berdenyut */
+  @keyframes alya-pulse {
+    0%,
+    100% {
+      opacity: 1;
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-neon) 55%, transparent);
+    }
+    50% {
+      opacity: 0.75;
+      box-shadow: 0 0 0 6px
+        color-mix(in srgb, var(--color-neon) 0%, transparent);
+    }
+  }
+  .dot-live {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: var(--color-neon);
+    animation: alya-pulse 2.4s ease-in-out infinite;
+  }
+
+  /* ---- Scroll reveal (IntersectionObserver menambah .is-visible) ---- */
+  .reveal {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0);
+    transition:
+      opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  /* Elemen dekoratif: jangan pernah menangkap klik / dianggap konten */
+  .deco {
+    pointer-events: none;
+    user-select: none;
+  }
+}
+
+/* Hormati preferensi pengguna: matikan semua gerakan */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .marquee-track {
+    animation: none;
+  }
+  .dot-live {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
