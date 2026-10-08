@@ -102,20 +102,16 @@ Repo ini masih memuat placeholder yang ditandai `[ISI]` di `lib/content.ts`.
 
 Deploy otomatis: setiap `push` ke `main` → GitHub Actions build → publish ke Pages.
 
-**Satu kali setup:** repo ini sebelumnya memakai Pages mode *legacy*
-(menyajikan file dari branch `main`). Untuk memakai workflow ini, sumber Pages
-harus diganti ke **GitHub Actions**:
+**Status: sudah dikonfigurasi.** Repo ini memakai source Pages **GitHub Actions**
+(`build_type: workflow`), bukan lagi mode *legacy* yang menyajikan file mentah dari
+branch `main`. Tidak ada langkah manual untuk push berikutnya.
 
-> Settings → Pages → Build and deployment → Source: **GitHub Actions**
-
-Atau lewat CLI:
-
-```bash
-gh api -X POST repos/heluvaa/heluvaa.github.io/pages \
-  -f build_type=workflow
-```
-
-Setelah itu, workflow di `.github/workflows/deploy.yml` yang mengambil alih.
+> Kalau repo ini di-fork, atau Pages-nya pernah direset ke mode lain:
+> Settings → Pages → Build and deployment → Source: **GitHub Actions**. Atau:
+>
+> ```bash
+> gh api -X PUT repos/heluvaa/heluvaa.github.io/pages -f build_type=workflow
+> ```
 
 ---
 
