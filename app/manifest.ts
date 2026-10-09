@@ -5,20 +5,14 @@ export const dynamic = "force-static";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${site.name} — ${site.role}`,
-    short_name: site.first,
-    description: site.description,
+    name: site.lengkap,
+    short_name: site.nama,
+    description: site.deskripsi,
     start_url: "/",
     display: "standalone",
-    background_color: "#05060a",
-    theme_color: "#05060a",
+    background_color: "#ffffff",
+    theme_color: "#ffffff",
     lang: "id",
-    icons: [
-      {
-        src: "/icon.svg",
-        sizes: "any",
-        type: "image/svg+xml",
-      },
-    ],
+    icons: [{ src: "/icon.svg", sizes: "any", type: "image/svg+xml" }],
   };
 }

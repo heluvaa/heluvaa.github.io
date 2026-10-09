@@ -1,15 +1,31 @@
 import type { MetadataRoute } from "next";
-import { site } from "@/lib/content";
+import { blog, katalog, site } from "@/lib/content";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const sekarang = new Date();
+
+  const statis = ["", "/katalog", "/portofolio", "/blog", "/faq", "/kontak", "/request-custom"];
+
   return [
-    {
-      url: `${site.url}/`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 1,
-    },
+    ...statis.map((p, i) => ({
+      url: `${site.url}${p}/`,
+      lastModified: sekarang,
+      changeFrequency: (i === 0 ? "weekly" : "monthly") as "weekly" | "monthly",
+      priority: i === 0 ? 1 : 0.8,
+    })),
+    ...katalog.aplikasi.map((a) => ({
+      url: `${site.url}/katalog/${a.slug}/`,
+      lastModified: sekarang,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+    ...blog.artikel.map((a) => ({
+      url: `${site.url}/blog/${a.slug}/`,
+      lastModified: new Date(a.tanggal),
+      changeFrequency: "yearly" as const,
+      priority: 0.6,
+    })),
   ];
 }

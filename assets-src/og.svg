@@ -1,68 +1,84 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#38bdf8"/>
-      <stop offset="55%" stop-color="#a855f7"/>
-      <stop offset="100%" stop-color="#00ffa3"/>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#2563eb"/>
     </linearGradient>
-    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
-      <path d="M48 0H0v48" fill="none" stroke="#151a26" stroke-width="1"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#eef4ff"/>
+      <stop offset="60%" stop-color="#ffffff"/>
+    </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#d6dbe6"/>
     </pattern>
-    <radialGradient id="glow" cx="18%" cy="0%" r="75%">
-      <stop offset="0%" stop-color="#00ffa3" stop-opacity="0.20"/>
-      <stop offset="100%" stop-color="#00ffa3" stop-opacity="0"/>
+    <radialGradient id="glowA" cx="8%" cy="0%" r="60%">
+      <stop offset="0%" stop-color="#2563eb" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#2563eb" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="glow2" cx="95%" cy="100%" r="65%">
-      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="#a855f7" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="glow3" cx="80%" cy="5%" r="50%">
-      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+    <radialGradient id="glowB" cx="96%" cy="96%" r="55%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
     </radialGradient>
   </defs>
 
-  <rect width="1200" height="630" fill="#05060a"/>
-  <rect width="1200" height="630" fill="url(#grid)"/>
-  <rect width="1200" height="630" fill="url(#glow)"/>
-  <rect width="1200" height="630" fill="url(#glow2)"/>
-  <rect width="1200" height="630" fill="url(#glow3)"/>
-  <rect x="0" y="0" width="1200" height="5" fill="url(#g)"/>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#dots)" opacity="0.7"/>
+  <rect width="1200" height="630" fill="url(#glowA)"/>
+  <rect width="1200" height="630" fill="url(#glowB)"/>
+  <rect x="0" y="0" width="1200" height="6" fill="url(#brand)"/>
 
-  <!-- Kartu kiri: identitas -->
-  <g font-family="monospace">
-    <text x="88" y="196" font-size="19" letter-spacing="7" fill="#7d8494">PORTFOLIO 2026</text>
-    <text x="86" y="222" font-size="19" fill="#7d8494" opacity="0">.</text>
+  <!-- Logo -->
+  <g transform="translate(84,74)">
+    <rect width="60" height="60" rx="14" fill="url(#brand)"/>
+    <text x="30" y="33" text-anchor="middle" dominant-baseline="central"
+          font-family="ui-sans-serif, system-ui, sans-serif" font-size="23"
+          font-weight="800" fill="#ffffff">DC</text>
+    <text x="78" y="38" font-family="ui-sans-serif, system-ui, sans-serif"
+          font-size="25" font-weight="800" fill="#0f1320">Decu</text>
   </g>
 
-  <g font-family="sans-serif" font-weight="bold" letter-spacing="-2">
-    <text x="84" y="316" font-size="82" fill="#eef1f7">Gaizka Nazaryo</text>
-    <text x="84" y="408" font-size="82" fill="url(#g)">Widiansyah</text>
+  <g font-family="ui-sans-serif, system-ui, sans-serif" font-weight="800" letter-spacing="-1.5">
+    <text x="84" y="282" font-size="62" fill="#0f1320">Website &amp; Aplikasi</text>
+    <text x="84" y="356" font-size="62" fill="url(#brand)">yang siap dipakai.</text>
   </g>
 
-  <g font-family="monospace">
-    <text x="88" y="472" font-size="25" fill="#00ffa3">SMK TKJ graduate building AI products</text>
+  <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="24" fill="#37405a">
+    <text x="84" y="424">Untuk UMKM, sekolah, dan perorangan.</text>
   </g>
 
-  <rect x="88" y="512" width="68" height="3" fill="url(#g)"/>
+  <rect x="84" y="462" width="64" height="4" rx="2" fill="url(#brand)"/>
 
-  <g font-family="sans-serif" font-size="21" fill="#7d8494">
-    <text x="88" y="566">AI Mastery ID&#160;&#160;·&#160;&#160;Anatomi App</text>
+  <g font-family="ui-monospace, monospace" font-size="17" fill="#6d7688">
+    <text x="84" y="524">Katalog Menu QR · Kasir · Toko Online · Absensi · IoT</text>
   </g>
 
-  <g font-family="monospace" font-size="21" fill="#7d8494" text-anchor="end">
-    <text x="1112" y="566">heluvaa.github.io</text>
+  <g font-family="ui-monospace, monospace" font-size="19" fill="#6d7688" text-anchor="end">
+    <text x="1116" y="524">heluvaa.github.io</text>
   </g>
 
-  <!-- Monogram kanan -->
-  <g transform="translate(1000,120)">
-    <rect x="0" y="0" width="120" height="120" rx="26" fill="none" stroke="#1b1f2b" stroke-width="2"/>
-    <text x="60" y="62" text-anchor="middle" dominant-baseline="central"
-          font-family="monospace" font-size="46" font-weight="bold"
-          letter-spacing="2" fill="url(#g)">GN</text>
-  </g>
-  <g stroke="#00ffa3" stroke-width="3" stroke-linecap="round">
-    <path d="M960 284V254h30" fill="none"/>
-    <path d="M1140 56V28h-30" fill="none"/>
+  <!-- Kartu kecil kanan: paket paling laris -->
+  <g transform="translate(760,150)">
+    <rect width="356" height="250" rx="22" fill="#ffffff" stroke="#e7eaf1" stroke-width="2"/>
+    <rect x="0" y="0" width="356" height="6" rx="3" fill="url(#brand)"/>
+    <rect x="118" y="-14" width="120" height="30" rx="15" fill="#2563eb"/>
+    <text x="178" y="3" text-anchor="middle" dominant-baseline="central"
+          font-family="ui-monospace, monospace" font-size="13" font-weight="700"
+          fill="#ffffff">PALING LARIS</text>
+
+    <text x="28" y="72" font-family="ui-sans-serif, system-ui, sans-serif"
+          font-size="23" font-weight="800" fill="#0f1320">Kustomisasi</text>
+    <text x="28" y="132" font-family="ui-sans-serif, system-ui, sans-serif"
+          font-size="38" font-weight="800" fill="#0f1320">Rp 500.000</text>
+    <text x="28" y="158" font-family="ui-monospace, monospace"
+          font-size="13" fill="#6d7688">sekali bayar, mulai dari</text>
+
+    <g fill="#16a34a" font-family="ui-sans-serif, system-ui, sans-serif" font-size="17">
+      <text x="28" y="196">✓</text>
+      <text x="28" y="222">✓</text>
+    </g>
+    <g fill="#37405a" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16">
+      <text x="52" y="198">Tampilan sesuai brand kamu</text>
+      <text x="52" y="224">Pendampingan sampai bisa jalan</text>
+    </g>
   </g>
 </svg>

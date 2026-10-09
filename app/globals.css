@@ -1,26 +1,34 @@
 @import "tailwindcss";
 
 /* ============================================================
-   DESIGN TOKENS — dark, minimalist, satu aksen neon
+   TOKEN DESAIN — tema terang, ramah, untuk pemilik usaha kecil
    ============================================================ */
 @theme {
-  --color-bg: #05060a;
-  --color-bg-soft: #07080d;
-  --color-panel: #0b0d14;
-  --color-panel-2: #0e1119;
-  --color-line: #1b1f2b;
-  --color-line-2: #262c3c;
+  --color-bg: #ffffff;
+  --color-bg-soft: #f6f8fc;
+  --color-bg-tint: #eef4ff;
+  --color-surface: #ffffff;
 
-  --color-ink: #eef1f7;
-  --color-ink-soft: #c3c9d6;
-  --color-muted: #7d8494;
+  --color-line: #e7eaf1;
+  --color-line-2: #d6dbe6;
 
-  --color-neon: #00ffa3;
-  --color-neon-dim: #00c97f;
-  --color-cy: #38bdf8;
-  --color-vi: #a855f7;
+  --color-ink: #0f1320;
+  --color-ink-soft: #37405a;
+  --color-muted: #6d7688;
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-soft: #eef4ff;
+
+  --color-accent: #f59e0b;
+  --color-accent-soft: #fff7e8;
+
+  --color-wa: #25d366;
+  --color-wa-dark: #15803d;
+
+  --color-good: #16a34a;
+
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, sans-serif;
   --font-mono: var(--font-jb), ui-monospace, "SFMono-Regular", Menlo, monospace;
 
@@ -31,10 +39,6 @@
    BASE
    ============================================================ */
 @layer base {
-  * {
-    border-color: var(--color-line);
-  }
-
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
@@ -50,31 +54,40 @@
   }
 
   ::selection {
-    background: color-mix(in srgb, var(--color-neon) 28%, transparent);
-    color: #fff;
+    background: color-mix(in srgb, var(--color-primary) 22%, transparent);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-neon);
+    outline: 2px solid var(--color-primary);
     outline-offset: 3px;
-    border-radius: 4px;
+    border-radius: 6px;
   }
 
-  /* Scrollbar halus, tidak norak */
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: var(--color-bg);
+    background: var(--color-bg-soft);
   }
   ::-webkit-scrollbar-thumb {
     background: var(--color-line-2);
     border-radius: 99px;
-    border: 3px solid var(--color-bg);
+    border: 3px solid var(--color-bg-soft);
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-neon-dim);
+    background: var(--color-primary);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -85,84 +98,94 @@
 }
 
 /* ============================================================
-   LAYOUT PRIMITIVES
+   PRIMITIF LAYOUT
    ============================================================ */
 @layer components {
   .shell {
     width: 100%;
     max-width: 1160px;
     margin-inline: auto;
-    padding-inline: 22px;
+    padding-inline: 20px;
   }
 
-  /* Ruang napas vertikal antar-section */
   .section {
-    padding-block: clamp(72px, 12vw, 140px);
+    padding-block: clamp(60px, 9vw, 108px);
   }
 
-  .mono-label {
+  .eyebrow {
     font-family: var(--font-mono);
     font-size: 11px;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--color-muted);
+    color: var(--color-primary);
   }
 
-  .grad-text {
-    background-image: linear-gradient(
-      100deg,
-      var(--color-cy) 0%,
-      var(--color-vi) 55%,
-      var(--color-neon) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  /* ---- Panel / kartu ---- */
-  .panel {
-    position: relative;
-    background: linear-gradient(
-      180deg,
-      var(--color-panel) 0%,
-      var(--color-bg-soft) 100%
-    );
+  /* ---- Kartu ---- */
+  .card {
+    background: var(--color-surface);
     border: 1px solid var(--color-line);
     border-radius: var(--radius-card);
+    box-shadow:
+      0 1px 2px rgba(15, 19, 32, 0.04),
+      0 10px 30px -18px rgba(15, 19, 32, 0.16);
     transition:
-      border-color 0.35s ease,
-      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.35s ease;
+      border-color 0.3s ease,
+      transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.3s ease;
   }
 
-  .panel-hover:hover {
-    border-color: color-mix(in srgb, var(--color-neon) 45%, var(--color-line));
+  .card-hover:hover {
+    border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-line));
     transform: translateY(-4px);
     box-shadow:
-      0 18px 50px -22px color-mix(in srgb, var(--color-neon) 40%, transparent),
-      0 0 0 1px color-mix(in srgb, var(--color-neon) 12%, transparent);
+      0 2px 4px rgba(15, 19, 32, 0.05),
+      0 24px 50px -24px rgba(37, 99, 235, 0.35);
   }
 
-  /* ---- Chip / badge ---- */
+  /* Kartu unggulan (paket "paling laris") */
+  .card-featured {
+    border-color: var(--color-primary);
+    box-shadow:
+      0 0 0 1px var(--color-primary),
+      0 24px 60px -28px rgba(37, 99, 235, 0.5);
+  }
+
+  /* ---- Chip & badge ---- */
   .chip {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-family: var(--font-mono);
-    font-size: 11.5px;
+    font-size: 12px;
+    font-weight: 600;
     line-height: 1;
-    padding: 7px 11px;
+    padding: 7px 12px;
     border-radius: 999px;
     border: 1px solid var(--color-line);
-    background: var(--color-panel-2);
+    background: var(--color-bg-soft);
     color: var(--color-ink-soft);
     white-space: nowrap;
   }
 
-  .chip-accent {
-    border-color: color-mix(in srgb, var(--color-neon) 30%, var(--color-line));
-    color: var(--color-neon);
+  .chip-primary {
+    border-color: color-mix(in srgb, var(--color-primary) 25%, transparent);
+    background: var(--color-primary-soft);
+    color: var(--color-primary-dark);
+  }
+
+  .badge-contoh {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: var(--color-accent-soft);
+    color: #92400e;
+    border: 1px solid color-mix(in srgb, var(--color-accent) 35%, transparent);
+    vertical-align: middle;
   }
 
   /* ---- Tombol ---- */
@@ -170,188 +193,218 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 9px;
-    font-size: 14px;
-    font-weight: 600;
+    gap: 8px;
+    font-size: 14.5px;
+    font-weight: 700;
     letter-spacing: -0.01em;
     padding: 13px 22px;
-    border-radius: 999px;
+    border-radius: 12px;
     border: 1px solid transparent;
     cursor: pointer;
     white-space: nowrap;
     transition:
-      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.25s ease,
-      background-color 0.25s ease,
-      border-color 0.25s ease,
-      color 0.25s ease;
+      transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.22s ease,
+      background-color 0.22s ease,
+      border-color 0.22s ease,
+      color 0.22s ease;
   }
 
   .btn:active {
-    transform: scale(0.975);
+    transform: translateY(1px);
   }
 
   .btn-primary {
-    background: var(--color-neon);
-    color: #03150e;
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-neon) 45%, transparent);
+    background: var(--color-primary);
+    color: #fff;
+    box-shadow: 0 10px 24px -12px rgba(37, 99, 235, 0.75);
   }
   .btn-primary:hover {
-    background: #4dffbe;
-    box-shadow: 0 12px 40px -12px
-      color-mix(in srgb, var(--color-neon) 65%, transparent);
+    background: var(--color-primary-dark);
     transform: translateY(-2px);
+    box-shadow: 0 16px 34px -14px rgba(37, 99, 235, 0.85);
   }
 
   .btn-ghost {
-    background: var(--color-panel);
+    background: var(--color-surface);
     border-color: var(--color-line-2);
     color: var(--color-ink);
   }
   .btn-ghost:hover {
-    border-color: color-mix(in srgb, var(--color-neon) 50%, var(--color-line));
-    color: var(--color-neon);
+    border-color: var(--color-primary);
+    color: var(--color-primary-dark);
     transform: translateY(-2px);
   }
 
-  /* ---- Link kecil dengan panah ---- */
+  .btn-wa {
+    background: var(--color-wa);
+    color: #05301a;
+    box-shadow: 0 10px 24px -12px rgba(37, 211, 102, 0.8);
+  }
+  .btn-wa:hover {
+    background: var(--color-wa-dark);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+  /* ---- Link panah ---- */
   .link-arrow {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
-    font-size: 13.5px;
-    font-weight: 600;
-    color: var(--color-neon);
-    font-family: var(--font-mono);
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-primary-dark);
   }
   .link-arrow svg {
-    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .link-arrow:hover svg {
-    transform: translate(3px, -3px);
+    transform: translateX(3px);
+  }
+
+  /* ---- Accordion FAQ (details/summary native) ---- */
+  .faq-item {
+    border: 1px solid var(--color-line);
+    border-radius: 14px;
+    background: var(--color-surface);
+    overflow: hidden;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .faq-item[open] {
+    border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-line));
+    box-shadow: 0 12px 30px -20px rgba(37, 99, 235, 0.45);
+  }
+  .faq-item > summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    cursor: pointer;
+    list-style: none;
+    padding: 18px 20px;
+    font-weight: 700;
+    font-size: 15.5px;
+    color: var(--color-ink);
+    transition: color 0.2s ease;
+  }
+  .faq-item > summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-item > summary:hover {
+    color: var(--color-primary-dark);
+  }
+  .faq-item > summary .chev {
+    flex: none;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    color: var(--color-muted);
+  }
+  .faq-item[open] > summary .chev {
+    transform: rotate(180deg);
+    color: var(--color-primary);
+  }
+  .faq-jawab {
+    padding: 0 20px 20px;
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--color-ink-soft);
+  }
+
+  /* ---- Form ---- */
+  .field {
+    display: block;
+    width: 100%;
+    font-size: 14.5px;
+    font-family: inherit;
+    color: var(--color-ink);
+    background: var(--color-surface);
+    border: 1px solid var(--color-line-2);
+    border-radius: 12px;
+    padding: 12px 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .field::placeholder {
+    color: color-mix(in srgb, var(--color-muted) 75%, transparent);
+  }
+  .field:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 14%, transparent);
+  }
+  .field-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-ink-soft);
+    margin-bottom: 7px;
   }
 }
 
 /* ============================================================
-   UTILITIES — grid background, glow, marquee, reveal
+   UTILITAS
    ============================================================ */
 @layer utilities {
-  .grid-bg {
-    background-image:
-      linear-gradient(
-        to right,
-        color-mix(in srgb, var(--color-line) 70%, transparent) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        to bottom,
-        color-mix(in srgb, var(--color-line) 70%, transparent) 1px,
-        transparent 1px
-      );
-    background-size: 64px 64px;
-    -webkit-mask-image: radial-gradient(
-      ellipse 80% 60% at 50% 0%,
-      #000 5%,
-      transparent 75%
+  .bg-dots {
+    background-image: radial-gradient(
+      color-mix(in srgb, var(--color-line-2) 85%, transparent) 1px,
+      transparent 1px
     );
-    mask-image: radial-gradient(
-      ellipse 80% 60% at 50% 0%,
-      #000 5%,
-      transparent 75%
-    );
+    background-size: 22px 22px;
   }
 
-  .glow-neon {
+  .glow-blue {
     background: radial-gradient(
       circle at center,
-      color-mix(in srgb, var(--color-neon) 22%, transparent) 0%,
+      color-mix(in srgb, var(--color-primary) 22%, transparent) 0%,
+      transparent 70%
+    );
+    filter: blur(56px);
+  }
+
+  .glow-amber {
+    background: radial-gradient(
+      circle at center,
+      color-mix(in srgb, var(--color-accent) 26%, transparent) 0%,
       transparent 70%
     );
     filter: blur(60px);
   }
 
-  .glow-violet {
-    background: radial-gradient(
-      circle at center,
-      color-mix(in srgb, var(--color-vi) 20%, transparent) 0%,
-      transparent 70%
-    );
-    filter: blur(70px);
+  .grid-lines {
+    background-image:
+      linear-gradient(
+        to right,
+        color-mix(in srgb, var(--color-line) 90%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--color-line) 90%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 48px 48px;
   }
 
-  .hairline {
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      var(--color-line-2) 20%,
-      var(--color-line-2) 80%,
-      transparent
-    );
-  }
-
-  /* Marquee halus */
-  @keyframes alya-marquee {
-    from {
-      transform: translate3d(0, 0, 0);
-    }
-    to {
-      transform: translate3d(-50%, 0, 0);
-    }
-  }
-  .marquee-mask {
-    -webkit-mask-image: linear-gradient(
-      90deg,
-      transparent,
-      #000 12%,
-      #000 88%,
-      transparent
-    );
-    mask-image: linear-gradient(
-      90deg,
-      transparent,
-      #000 12%,
-      #000 88%,
-      transparent
-    );
-  }
-  .marquee-track {
-    display: flex;
-    width: max-content;
-    animation: alya-marquee 38s linear infinite;
-  }
-  .marquee-mask:hover .marquee-track {
-    animation-play-state: paused;
-  }
-
-  /* Titik status berdenyut */
-  @keyframes alya-pulse {
+  @keyframes decu-pulse {
     0%,
     100% {
-      opacity: 1;
-      box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-neon) 55%, transparent);
+      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.55);
     }
-    50% {
-      opacity: 0.75;
-      box-shadow: 0 0 0 6px
-        color-mix(in srgb, var(--color-neon) 0%, transparent);
+    70% {
+      box-shadow: 0 0 0 12px rgba(37, 211, 102, 0);
     }
   }
-  .dot-live {
-    width: 7px;
-    height: 7px;
-    border-radius: 999px;
-    background: var(--color-neon);
-    animation: alya-pulse 2.4s ease-in-out infinite;
+  .wa-pulse {
+    animation: decu-pulse 2.6s ease-out infinite;
   }
 
   /* ---- Scroll reveal (IntersectionObserver menambah .is-visible) ---- */
   .reveal {
     opacity: 0;
-    transform: translate3d(0, 30px, 0);
+    transform: translate3d(0, 22px, 0);
     transition:
-      opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
     transition-delay: var(--reveal-delay, 0ms);
     will-change: opacity, transform;
   }
@@ -360,24 +413,19 @@
     transform: translate3d(0, 0, 0);
   }
 
-  /* Elemen dekoratif: jangan pernah menangkap klik / dianggap konten */
   .deco {
     pointer-events: none;
     user-select: none;
   }
 }
 
-/* Hormati preferensi pengguna: matikan semua gerakan */
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1;
     transform: none;
     transition: none;
   }
-  .marquee-track {
-    animation: none;
-  }
-  .dot-live {
+  .wa-pulse {
     animation: none;
   }
   *,

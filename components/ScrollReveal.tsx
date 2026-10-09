@@ -1,19 +1,22 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 /**
- * Satu-satunya perilaku client-side untuk animasi scroll.
- * Menambah `.is-visible` pada setiap elemen `.reveal` begitu masuk viewport,
- * lalu berhenti mengamatinya (sekali jalan, tidak bolak-balik).
+ * Menambah `.is-visible` pada setiap elemen `.reveal` begitu masuk viewport.
+ * Di-reset setiap kali pindah halaman supaya section di halaman baru
+ * ikut teranimasi, bukan langsung tampil semua.
  */
 export default function ScrollReveal() {
+  const pathname = usePathname();
+
   useEffect(() => {
     const elements = Array.from(
       document.querySelectorAll<HTMLElement>(".reveal"),
     );
+    if (elements.length === 0) return;
 
-    // Fallback: browser tanpa IntersectionObserver → tampilkan semua.
     if (typeof IntersectionObserver === "undefined") {
       elements.forEach((el) => el.classList.add("is-visible"));
       return;
@@ -28,16 +31,12 @@ export default function ScrollReveal() {
           }
         }
       },
-      {
-        rootMargin: "0px 0px -10% 0px",
-        threshold: 0.1,
-      },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
     );
 
     elements.forEach((el) => observer.observe(el));
-
     return () => observer.disconnect();
-  }, []);
+  }, [pathname]);
 
   return null;
 }
