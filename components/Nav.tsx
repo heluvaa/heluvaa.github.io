@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import ThemeToggle from "@/components/ThemeToggle";
 import { nav, site } from "@/lib/content";
 
 export default function Nav() {
@@ -83,6 +84,8 @@ export default function Nav() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <ThemeToggle className="h-10 w-10" />
+
           <Link
             href="/request-custom"
             className="btn btn-primary hidden sm:inline-flex px-5 py-2.5 text-[13.5px]"
@@ -133,6 +136,12 @@ export default function Nav() {
               </li>
             ))}
           </ul>
+          <div className="mt-4 flex items-center justify-between rounded-xl border border-line bg-bg-soft px-4 py-3">
+            <span className="text-[13.5px] font-semibold text-ink-soft">
+              Mode gelap
+            </span>
+            <ThemeToggle className="h-9 w-9" />
+          </div>
           <Link href="/request-custom" className="btn btn-primary mt-4 w-full">
             Request Custom
           </Link>

@@ -40,9 +40,6 @@ export default function KartuPaket({
           <span className="text-[27px] font-extrabold tracking-tight text-ink">
             {paket.harga}
           </span>
-          {paket.harga !== "Menyesuaikan" && (
-            <span className="badge-contoh">harga contoh</span>
-          )}
         </p>
       </div>
 

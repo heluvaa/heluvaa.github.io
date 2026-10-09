@@ -70,8 +70,8 @@ export default function MockupAplikasi({
       </div>
 
       {contoh && (
-        <span className="badge-contoh absolute -bottom-2 left-1/2 -translate-x-1/2 bg-white">
-          tampilan contoh
+        <span className="badge badge-accent absolute -bottom-2 left-1/2 -translate-x-1/2">
+          pratinjau
         </span>
       )}
     </div>

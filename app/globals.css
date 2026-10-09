@@ -1,32 +1,109 @@
 @import "tailwindcss";
 
+/* Varian `dark:` digerakkan oleh atribut data-theme di <html> */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /* ============================================================
-   TOKEN DESAIN — tema terang, ramah, untuk pemilik usaha kecil
+   TOKEN — dua tema. Nilai sesungguhnya ada di --c-*, lalu
+   dipetakan ke token Tailwind lewat @theme inline supaya
+   utility seperti `bg-bg` / `text-ink` ikut berubah saat tema
+   diganti tanpa membangun ulang CSS.
    ============================================================ */
-@theme {
-  --color-bg: #ffffff;
-  --color-bg-soft: #f6f8fc;
-  --color-bg-tint: #eef4ff;
-  --color-surface: #ffffff;
 
-  --color-line: #e7eaf1;
-  --color-line-2: #d6dbe6;
+:root,
+[data-theme="light"] {
+  color-scheme: light;
 
-  --color-ink: #0f1320;
-  --color-ink-soft: #37405a;
-  --color-muted: #6d7688;
+  --c-bg: #ffffff;
+  --c-bg-soft: #f6f8fc;
+  --c-bg-tint: #eef4ff;
+  --c-surface: #ffffff;
+  --c-line: #e7eaf1;
+  --c-line-2: #d6dbe6;
 
-  --color-primary: #2563eb;
-  --color-primary-dark: #1d4ed8;
-  --color-primary-soft: #eef4ff;
+  --c-ink: #0f1320;
+  --c-ink-soft: #37405a;
+  --c-muted: #6d7688;
 
-  --color-accent: #f59e0b;
-  --color-accent-soft: #fff7e8;
+  --c-primary: #2563eb;
+  --c-primary-dark: #1d4ed8;
+  --c-primary-soft: #eef4ff;
 
-  --color-wa: #25d366;
-  --color-wa-dark: #15803d;
+  --c-accent: #f59e0b;
+  --c-accent-soft: #fff7e8;
+  --c-accent-ink: #92400e;
 
-  --color-good: #16a34a;
+  --c-wa: #25d366;
+  --c-wa-dark: #15803d;
+  --c-good: #16a34a;
+  --c-danger: #dc2626;
+  --c-danger-soft: #fef2f2;
+
+  --c-shadow-1: 0 1px 2px rgba(15, 19, 32, 0.04);
+  --c-shadow-2: 0 10px 30px -18px rgba(15, 19, 32, 0.18);
+  --c-shadow-hover: 0 24px 50px -24px rgba(37, 99, 235, 0.35);
+  --c-grid-line: rgba(214, 219, 230, 0.9);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --c-bg: #0b0d14;
+  --c-bg-soft: #0f121b;
+  --c-bg-tint: #131a2a;
+  --c-surface: #12151f;
+  --c-line: #232938;
+  --c-line-2: #313848;
+
+  --c-ink: #eef1f8;
+  --c-ink-soft: #c3cad9;
+  --c-muted: #8f97a9;
+
+  --c-primary: #4f8dff;
+  --c-primary-dark: #8fb4ff;
+  --c-primary-soft: #17243d;
+
+  --c-accent: #fbbf24;
+  --c-accent-soft: #2b2312;
+  --c-accent-ink: #fcd34d;
+
+  --c-wa: #25d366;
+  --c-wa-dark: #1c9c4c;
+  --c-good: #34d399;
+  --c-danger: #f87171;
+  --c-danger-soft: #2a1618;
+
+  --c-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --c-shadow-2: 0 12px 34px -20px rgba(0, 0, 0, 0.8);
+  --c-shadow-hover: 0 24px 50px -24px rgba(0, 0, 0, 0.9);
+  --c-grid-line: rgba(49, 56, 72, 0.85);
+}
+
+@theme inline {
+  --color-bg: var(--c-bg);
+  --color-bg-soft: var(--c-bg-soft);
+  --color-bg-tint: var(--c-bg-tint);
+  --color-surface: var(--c-surface);
+  --color-line: var(--c-line);
+  --color-line-2: var(--c-line-2);
+
+  --color-ink: var(--c-ink);
+  --color-ink-soft: var(--c-ink-soft);
+  --color-muted: var(--c-muted);
+
+  --color-primary: var(--c-primary);
+  --color-primary-dark: var(--c-primary-dark);
+  --color-primary-soft: var(--c-primary-soft);
+
+  --color-accent: var(--c-accent);
+  --color-accent-soft: var(--c-accent-soft);
+  --color-accent-ink: var(--c-accent-ink);
+
+  --color-wa: var(--c-wa);
+  --color-wa-dark: var(--c-wa-dark);
+  --color-good: var(--c-good);
+  --color-danger: var(--c-danger);
+  --color-danger-soft: var(--c-danger-soft);
 
   --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, sans-serif;
@@ -45,21 +122,21 @@
   }
 
   body {
-    background-color: var(--color-bg);
-    color: var(--color-ink);
-    font-family: var(--font-sans);
+    background-color: var(--c-bg);
+    color: var(--c-ink);
+    font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
   }
 
   ::selection {
-    background: color-mix(in srgb, var(--color-primary) 22%, transparent);
+    background: color-mix(in srgb, var(--c-primary) 25%, transparent);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 3px;
+    outline: 2px solid var(--c-primary);
+    outline-offset: 2px;
     border-radius: 6px;
   }
 
@@ -79,15 +156,14 @@
     height: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: var(--color-bg-soft);
+    background: var(--c-bg-soft);
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--color-line-2);
+    background: var(--c-line-2);
     border-radius: 99px;
-    border: 3px solid var(--color-bg-soft);
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-primary);
+    background: var(--c-primary);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -98,7 +174,7 @@
 }
 
 /* ============================================================
-   PRIMITIF LAYOUT
+   PRIMITIF
    ============================================================ */
 @layer components {
   .shell {
@@ -113,21 +189,18 @@
   }
 
   .eyebrow {
-    font-family: var(--font-mono);
+    font-family: var(--font-jb), ui-monospace, monospace;
     font-size: 11px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--color-primary);
+    color: var(--c-primary);
   }
 
-  /* ---- Kartu ---- */
   .card {
-    background: var(--color-surface);
-    border: 1px solid var(--color-line);
+    background: var(--c-surface);
+    border: 1px solid var(--c-line);
     border-radius: var(--radius-card);
-    box-shadow:
-      0 1px 2px rgba(15, 19, 32, 0.04),
-      0 10px 30px -18px rgba(15, 19, 32, 0.16);
+    box-shadow: var(--c-shadow-1), var(--c-shadow-2);
     transition:
       border-color 0.3s ease,
       transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
@@ -135,22 +208,17 @@
   }
 
   .card-hover:hover {
-    border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-line));
+    border-color: color-mix(in srgb, var(--c-primary) 40%, var(--c-line));
     transform: translateY(-4px);
-    box-shadow:
-      0 2px 4px rgba(15, 19, 32, 0.05),
-      0 24px 50px -24px rgba(37, 99, 235, 0.35);
+    box-shadow: var(--c-shadow-1), var(--c-shadow-hover);
   }
 
-  /* Kartu unggulan (paket "paling laris") */
-  .card-featured {
-    border-color: var(--color-primary);
-    box-shadow:
-      0 0 0 1px var(--color-primary),
-      0 24px 60px -28px rgba(37, 99, 235, 0.5);
+  .card-flat {
+    background: var(--c-surface);
+    border: 1px solid var(--c-line);
+    border-radius: 14px;
   }
 
-  /* ---- Chip & badge ---- */
   .chip {
     display: inline-flex;
     align-items: center;
@@ -160,32 +228,50 @@
     line-height: 1;
     padding: 7px 12px;
     border-radius: 999px;
-    border: 1px solid var(--color-line);
-    background: var(--color-bg-soft);
-    color: var(--color-ink-soft);
+    border: 1px solid var(--c-line);
+    background: var(--c-bg-soft);
+    color: var(--c-ink-soft);
     white-space: nowrap;
   }
 
   .chip-primary {
-    border-color: color-mix(in srgb, var(--color-primary) 25%, transparent);
-    background: var(--color-primary-soft);
-    color: var(--color-primary-dark);
+    border-color: color-mix(in srgb, var(--c-primary) 35%, transparent);
+    background: var(--c-primary-soft);
+    color: var(--c-primary-dark);
   }
 
-  .badge-contoh {
+  .badge {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    font-family: var(--font-mono);
-    font-size: 9.5px;
+    font-family: var(--font-jb), ui-monospace, monospace;
+    font-size: 10px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 4px 8px;
     border-radius: 999px;
-    background: var(--color-accent-soft);
-    color: #92400e;
-    border: 1px solid color-mix(in srgb, var(--color-accent) 35%, transparent);
+    border: 1px solid var(--c-line-2);
+    background: var(--c-bg-soft);
+    color: var(--c-muted);
     vertical-align: middle;
+  }
+
+  .badge-accent {
+    background: var(--c-accent-soft);
+    color: var(--c-accent-ink);
+    border-color: color-mix(in srgb, var(--c-accent) 45%, transparent);
+  }
+
+  .badge-good {
+    background: color-mix(in srgb, var(--c-good) 14%, transparent);
+    color: var(--c-good);
+    border-color: color-mix(in srgb, var(--c-good) 40%, transparent);
+  }
+
+  .badge-danger {
+    background: var(--c-danger-soft);
+    color: var(--c-danger);
+    border-color: color-mix(in srgb, var(--c-danger) 40%, transparent);
   }
 
   /* ---- Tombol ---- */
@@ -197,7 +283,7 @@
     font-size: 14.5px;
     font-weight: 700;
     letter-spacing: -0.01em;
-    padding: 13px 22px;
+    padding: 12px 20px;
     border-radius: 12px;
     border: 1px solid transparent;
     cursor: pointer;
@@ -214,47 +300,67 @@
     transform: translateY(1px);
   }
 
-  .btn-primary {
-    background: var(--color-primary);
-    color: #fff;
-    box-shadow: 0 10px 24px -12px rgba(37, 99, 235, 0.75);
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
   }
-  .btn-primary:hover {
-    background: var(--color-primary-dark);
+
+  .btn-primary {
+    background: var(--c-primary);
+    color: #fff;
+    box-shadow: 0 10px 24px -14px color-mix(in srgb, var(--c-primary) 80%, transparent);
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--c-primary) 85%, #000);
     transform: translateY(-2px);
-    box-shadow: 0 16px 34px -14px rgba(37, 99, 235, 0.85);
   }
 
   .btn-ghost {
-    background: var(--color-surface);
-    border-color: var(--color-line-2);
-    color: var(--color-ink);
+    background: var(--c-surface);
+    border-color: var(--c-line-2);
+    color: var(--c-ink);
   }
-  .btn-ghost:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary-dark);
+  .btn-ghost:hover:not(:disabled) {
+    border-color: var(--c-primary);
+    color: var(--c-primary-dark);
     transform: translateY(-2px);
   }
 
   .btn-wa {
-    background: var(--color-wa);
+    background: var(--c-wa);
     color: #05301a;
-    box-shadow: 0 10px 24px -12px rgba(37, 211, 102, 0.8);
   }
-  .btn-wa:hover {
-    background: var(--color-wa-dark);
+  .btn-wa:hover:not(:disabled) {
+    background: var(--c-wa-dark);
     color: #fff;
     transform: translateY(-2px);
   }
 
-  /* ---- Link panah ---- */
+  .btn-danger {
+    background: var(--c-danger);
+    color: #fff;
+  }
+
+  .btn-sm {
+    padding: 8px 14px;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+
+  .btn-xs {
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 9px;
+  }
+
   .link-arrow {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     font-size: 14px;
     font-weight: 700;
-    color: var(--color-primary-dark);
+    color: var(--c-primary-dark);
   }
   .link-arrow svg {
     transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
@@ -263,17 +369,16 @@
     transform: translateX(3px);
   }
 
-  /* ---- Accordion FAQ (details/summary native) ---- */
+  /* ---- Accordion ---- */
   .faq-item {
-    border: 1px solid var(--color-line);
+    border: 1px solid var(--c-line);
     border-radius: 14px;
-    background: var(--color-surface);
+    background: var(--c-surface);
     overflow: hidden;
     transition: border-color 0.25s ease, box-shadow 0.25s ease;
   }
   .faq-item[open] {
-    border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-line));
-    box-shadow: 0 12px 30px -20px rgba(37, 99, 235, 0.45);
+    border-color: color-mix(in srgb, var(--c-primary) 40%, var(--c-line));
   }
   .faq-item > summary {
     display: flex;
@@ -285,29 +390,28 @@
     padding: 18px 20px;
     font-weight: 700;
     font-size: 15.5px;
-    color: var(--color-ink);
-    transition: color 0.2s ease;
+    color: var(--c-ink);
   }
   .faq-item > summary::-webkit-details-marker {
     display: none;
   }
   .faq-item > summary:hover {
-    color: var(--color-primary-dark);
+    color: var(--c-primary-dark);
   }
   .faq-item > summary .chev {
     flex: none;
     transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-    color: var(--color-muted);
+    color: var(--c-muted);
   }
   .faq-item[open] > summary .chev {
     transform: rotate(180deg);
-    color: var(--color-primary);
+    color: var(--c-primary);
   }
   .faq-jawab {
     padding: 0 20px 20px;
     font-size: 14.5px;
     line-height: 1.75;
-    color: var(--color-ink-soft);
+    color: var(--c-ink-soft);
   }
 
   /* ---- Form ---- */
@@ -316,27 +420,91 @@
     width: 100%;
     font-size: 14.5px;
     font-family: inherit;
-    color: var(--color-ink);
-    background: var(--color-surface);
-    border: 1px solid var(--color-line-2);
+    color: var(--c-ink);
+    background: var(--c-surface);
+    border: 1px solid var(--c-line-2);
     border-radius: 12px;
-    padding: 12px 14px;
+    padding: 11px 13px;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
   .field::placeholder {
-    color: color-mix(in srgb, var(--color-muted) 75%, transparent);
+    color: color-mix(in srgb, var(--c-muted) 80%, transparent);
   }
   .field:focus {
     outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 14%, transparent);
+    border-color: var(--c-primary);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--c-primary) 18%, transparent);
   }
   .field-label {
     display: block;
     font-size: 13px;
     font-weight: 700;
-    color: var(--color-ink-soft);
-    margin-bottom: 7px;
+    color: var(--c-ink-soft);
+    margin-bottom: 6px;
+  }
+
+  /* ---- Tabel data (dipakai demo) ---- */
+  .tabel {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 13.5px;
+  }
+  .tabel th {
+    text-align: left;
+    font-family: var(--font-jb), ui-monospace, monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    font-weight: 500;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--c-line);
+    white-space: nowrap;
+  }
+  .tabel td {
+    padding: 12px;
+    border-bottom: 1px solid var(--c-line);
+    color: var(--c-ink-soft);
+    vertical-align: middle;
+  }
+  .tabel tbody tr:last-child td {
+    border-bottom: 0;
+  }
+  .tabel tbody tr:hover td {
+    background: var(--c-bg-soft);
+  }
+
+  /* ---- Tab / segmented control ---- */
+  .segmen {
+    display: inline-flex;
+    gap: 4px;
+    padding: 4px;
+    border-radius: 12px;
+    border: 1px solid var(--c-line);
+    background: var(--c-bg-soft);
+    overflow-x: auto;
+    max-width: 100%;
+  }
+  .segmen button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--c-muted);
+    white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .segmen button[aria-selected="true"] {
+    background: var(--c-surface);
+    color: var(--c-ink);
+    box-shadow: var(--c-shadow-1);
+  }
+  .segmen button:hover[aria-selected="false"] {
+    color: var(--c-ink-soft);
   }
 }
 
@@ -344,18 +512,22 @@
    UTILITAS
    ============================================================ */
 @layer utilities {
+  .grid-lines {
+    background-image:
+      linear-gradient(to right, var(--c-grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--c-grid-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
   .bg-dots {
-    background-image: radial-gradient(
-      color-mix(in srgb, var(--color-line-2) 85%, transparent) 1px,
-      transparent 1px
-    );
+    background-image: radial-gradient(var(--c-grid-line) 1px, transparent 1px);
     background-size: 22px 22px;
   }
 
   .glow-blue {
     background: radial-gradient(
       circle at center,
-      color-mix(in srgb, var(--color-primary) 22%, transparent) 0%,
+      color-mix(in srgb, var(--c-primary) 26%, transparent) 0%,
       transparent 70%
     );
     filter: blur(56px);
@@ -364,28 +536,13 @@
   .glow-amber {
     background: radial-gradient(
       circle at center,
-      color-mix(in srgb, var(--color-accent) 26%, transparent) 0%,
+      color-mix(in srgb, var(--c-accent) 30%, transparent) 0%,
       transparent 70%
     );
     filter: blur(60px);
   }
 
-  .grid-lines {
-    background-image:
-      linear-gradient(
-        to right,
-        color-mix(in srgb, var(--color-line) 90%, transparent) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        to bottom,
-        color-mix(in srgb, var(--color-line) 90%, transparent) 1px,
-        transparent 1px
-      );
-    background-size: 48px 48px;
-  }
-
-  @keyframes decu-pulse {
+  @keyframes deku-pulse {
     0%,
     100% {
       box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.55);
@@ -395,10 +552,23 @@
     }
   }
   .wa-pulse {
-    animation: decu-pulse 2.6s ease-out infinite;
+    animation: deku-pulse 2.6s ease-out infinite;
   }
 
-  /* ---- Scroll reveal (IntersectionObserver menambah .is-visible) ---- */
+  @keyframes deku-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px) scale(0.99);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .anim-in {
+    animation: deku-in 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
   .reveal {
     opacity: 0;
     transform: translate3d(0, 22px, 0);
@@ -417,6 +587,11 @@
     pointer-events: none;
     user-select: none;
   }
+
+  .scroll-x {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -425,7 +600,8 @@
     transform: none;
     transition: none;
   }
-  .wa-pulse {
+  .wa-pulse,
+  .anim-in {
     animation: none;
   }
   *,

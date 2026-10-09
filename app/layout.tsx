@@ -1,9 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
-import WhatsAppFloat from "@/components/WhatsAppFloat";
 import ScrollReveal from "@/components/ScrollReveal";
 import { site } from "@/lib/content";
 
@@ -31,10 +28,11 @@ export const metadata: Metadata = {
     "jasa pembuatan website",
     "jasa aplikasi web",
     "aplikasi siap pakai",
-    "katalog menu QR",
-    "aplikasi kasir",
-    "IoT Indonesia",
-    "UMKM",
+    "menu digital QR",
+    "aplikasi booking",
+    "toko online UMKM",
+    "administrasi sekolah",
+    "UMKM Indonesia",
   ],
   alternates: { canonical: "/" },
   openGraph: {
@@ -55,7 +53,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.lengkap}`,
+    title: site.lengkap,
     description: site.deskripsi,
     images: ["/og.png"],
   },
@@ -63,11 +61,15 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
-  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
+
+/**
+ * Dijalankan sebelum cat pertama supaya tema tersimpan langsung terpasang
+ * dan tidak ada kedipan putih saat halaman bertema gelap dibuka.
+ */
+const SKRIP_TEMA = `try{var t=localStorage.getItem('tema');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t)}}catch(e){}`;
 
 export default function RootLayout({
   children,
@@ -75,17 +77,19 @@ export default function RootLayout({
   return (
     <html
       lang="id"
+      data-theme="light"
+      suppressHydrationWarning
       className={`${jakarta.variable} ${jetbrainsMono.variable}`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: SKRIP_TEMA }} />
+      </head>
       <body className="min-h-screen bg-bg antialiased">
         <noscript>
           <style>{`.reveal{opacity:1 !important;transform:none !important}`}</style>
         </noscript>
         <ScrollReveal />
-        <Nav />
-        <main>{children}</main>
-        <Footer />
-        <WhatsAppFloat />
+        {children}
       </body>
     </html>
   );

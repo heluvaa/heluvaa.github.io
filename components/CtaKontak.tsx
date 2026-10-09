@@ -7,7 +7,7 @@ export default function CtaKontak() {
   return (
     <section className="section">
       <div className="shell">
-        <div className="reveal relative overflow-hidden rounded-[24px] border border-line bg-[linear-gradient(135deg,var(--color-bg-tint)_0%,#ffffff_45%,var(--color-accent-soft)_100%)] p-8 sm:p-12">
+        <div className="reveal relative overflow-hidden rounded-[24px] border border-line bg-[linear-gradient(135deg,var(--c-bg-tint)_0%,var(--c-bg)_45%,var(--c-accent-soft)_100%)] p-8 sm:p-12">
           {/* Dekorasi */}
           <div aria-hidden="true" className="deco absolute inset-0">
             <div className="grid-lines absolute inset-0 opacity-40" />

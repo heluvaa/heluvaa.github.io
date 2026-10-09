@@ -64,7 +64,7 @@ export default async function DetailArtikel({
 
             <div className="flex flex-wrap items-center gap-2.5">
               <span className="chip chip-primary">{artikel.tag}</span>
-              {artikel.draft && <span className="badge-contoh">draft contoh</span>}
+              {artikel.draft && <span className="badge badge-accent">draft</span>}
             </div>
 
             <h1 className="mt-4 text-[clamp(25px,5vw,38px)] font-extrabold leading-[1.12] text-ink">
@@ -78,11 +78,11 @@ export default async function DetailArtikel({
         </header>
 
         <div className="shell max-w-3xl py-[clamp(36px,6vw,64px)]">
-          {site.demo && artikel.draft && (
+          {artikel.draft && (
             <div className="mb-9 flex items-start gap-3 rounded-[16px] border border-accent/35 bg-accent-soft px-5 py-4">
-              <span className="badge-contoh mt-0.5 bg-white">draft</span>
+              <span className="badge badge-accent mt-0.5">draft</span>
               <p className="text-[13.5px] leading-relaxed text-[#7c4a04]">
-                Artikel ini masih kerangka contoh, bukan tulisan final.
+                Artikel ini masih kerangka awal, bukan tulisan final.
               </p>
             </div>
           )}

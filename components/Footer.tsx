@@ -6,7 +6,7 @@ import { waLink } from "@/lib/utils";
 export default function Footer() {
   const tahun = new Date().getFullYear();
   const kontakAktif = kontakList.filter((k) => !k.pending && k.url);
-  const katalogTeratas = katalog.aplikasi.slice(0, 4);
+  const katalogTeratas = katalog.demo.slice(0, 4);
 
   return (
     <footer className="border-t border-line bg-bg-soft">
@@ -73,13 +73,13 @@ export default function Footer() {
           <nav aria-label="Katalog populer">
             <p className="eyebrow">Katalog</p>
             <ul className="mt-4 space-y-2.5">
-              {katalogTeratas.map((app) => (
-                <li key={app.slug}>
+              {katalogTeratas.map((d) => (
+                <li key={d.slug}>
                   <Link
-                    href={`/katalog/${app.slug}`}
+                    href={d.demoUrl}
                     className="text-[13.5px] font-medium text-ink-soft transition-colors hover:text-primary-dark"
                   >
-                    {app.nama}
+                    {d.nama}
                   </Link>
                 </li>
               ))}

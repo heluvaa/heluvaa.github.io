@@ -7,7 +7,6 @@ export default function KartuKarya({ karya }: { karya: Karya }) {
       <div className="flex items-center justify-between gap-3">
         <span className="chip chip-primary text-[11px]">{karya.kategori}</span>
         <span className="flex items-center gap-2">
-          {karya.demo && <span className="badge-contoh">contoh</span>}
           <span className="font-mono text-[11px] text-muted">{karya.tahun}</span>
         </span>
       </div>

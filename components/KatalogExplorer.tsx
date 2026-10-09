@@ -1,37 +1,31 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import KartuAplikasi from "@/components/KartuAplikasi";
 import Ikon from "@/components/Ikon";
-import { katalog, type Aplikasi } from "@/lib/content";
-
-type Kategori = Aplikasi["kategori"];
+import KartuDemo from "@/components/KartuDemo";
+import { katalog } from "@/lib/content";
 
 export default function KatalogExplorer() {
   const [cari, setCari] = useState("");
-  const [kategori, setKategori] = useState<Kategori | "Semua">("Semua");
+  const [kategori, setKategori] = useState<string>("Semua");
 
   const semuaKategori = useMemo(() => {
-    const set = new Set<Kategori>(katalog.aplikasi.map((a) => a.kategori));
-    return ["Semua", ...Array.from(set)] as (Kategori | "Semua")[];
+    const set = new Set(katalog.demo.map((d) => d.kategori));
+    return ["Semua", ...Array.from(set)];
   }, []);
 
   const hasil = useMemo(() => {
     const q = cari.trim().toLowerCase();
-    return katalog.aplikasi.filter((a) => {
-      const cocokKategori = kategori === "Semua" || a.kategori === kategori;
-      if (!cocokKategori) return false;
+    return katalog.demo.filter((d) => {
+      if (kategori !== "Semua" && d.kategori !== kategori) return false;
       if (!q) return true;
-      const teks = [a.nama, a.tagline, a.ringkas, a.kategori, ...a.fitur, ...a.teknologi]
-        .join(" ")
-        .toLowerCase();
+      const teks = [d.nama, d.tagline, d.kategori, ...d.deskripsi, ...d.fitur].join(" ").toLowerCase();
       return teks.includes(q);
     });
   }, [cari, kategori]);
 
   return (
     <div>
-      {/* Kontrol */}
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <label className="relative block w-full lg:max-w-sm">
           <span className="sr-only">Cari aplikasi</span>
@@ -42,7 +36,7 @@ export default function KatalogExplorer() {
             type="search"
             value={cari}
             onChange={(e) => setCari(e.target.value)}
-            placeholder="Cari aplikasi, fitur, atau kata kunci…"
+            placeholder="Cari aplikasi atau fitur…"
             className="field pl-11"
           />
         </label>
@@ -69,17 +63,14 @@ export default function KatalogExplorer() {
         </div>
       </div>
 
-      {/* Hasil */}
       <p className="mt-6 font-mono text-[11.5px] text-muted">
-        {hasil.length} dari {katalog.aplikasi.length} aplikasi
+        {hasil.length} dari {katalog.demo.length} aplikasi
         {cari && ` · kata kunci "${cari}"`}
       </p>
 
       {hasil.length === 0 ? (
         <div className="card mt-6 p-10 text-center">
-          <p className="text-[15px] font-bold text-ink">
-            Tidak ada aplikasi yang cocok
-          </p>
+          <p className="text-[15px] font-bold text-ink">Tidak ada aplikasi yang cocok</p>
           <p className="mt-2 text-[14px] text-muted">
             Coba kata kunci lain, atau pilih kategori &ldquo;Semua&rdquo;.
           </p>
@@ -95,9 +86,9 @@ export default function KatalogExplorer() {
           </button>
         </div>
       ) : (
-        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {hasil.map((app) => (
-            <KartuAplikasi key={app.slug} app={app} />
+        <div className="mt-6 grid gap-6 lg:grid-cols-2">
+          {hasil.map((d) => (
+            <KartuDemo key={d.slug} demo={d} />
           ))}
         </div>
       )}

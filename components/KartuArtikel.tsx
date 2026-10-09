@@ -8,7 +8,7 @@ export default function KartuArtikel({ artikel }: { artikel: Artikel }) {
     <article className="card card-hover group flex h-full flex-col p-6">
       <div className="flex items-center gap-2.5">
         <span className="chip chip-primary text-[11px]">{artikel.tag}</span>
-        {artikel.draft && <span className="badge-contoh">draft contoh</span>}
+        {artikel.draft && <span className="badge badge-accent">draft</span>}
       </div>
 
       <h3 className="mt-4 text-[17px] font-extrabold leading-snug text-ink transition-colors group-hover:text-primary-dark">

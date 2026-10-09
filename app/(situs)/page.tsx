@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Ikon from "@/components/Ikon";
-import KartuAplikasi from "@/components/KartuAplikasi";
+import KartuDemo from "@/components/KartuDemo";
 import KartuArtikel from "@/components/KartuArtikel";
 import KartuKarya from "@/components/KartuKarya";
 import KartuPaket from "@/components/KartuPaket";
@@ -27,8 +27,8 @@ const IKON: Record<string, "kode" | "cepat" | "revisi" | "rawat"> = {
 };
 
 export default function Beranda() {
-  const unggulan = katalog.aplikasi[0];
-  const katalogPratinjau = katalog.aplikasi.slice(0, 3);
+  const unggulan = katalog.demo[0];
+  const katalogPratinjau = katalog.demo.slice(0, 2);
   const karyaPratinjau = portofolio.karya.slice(0, 3);
   const artikelPratinjau = blog.artikel.slice(0, 3);
 
@@ -37,7 +37,7 @@ export default function Beranda() {
       {/* ================= HERO ================= */}
       <section id="atas" className="relative overflow-hidden">
         <div aria-hidden="true" className="deco absolute inset-0 -z-10">
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,var(--color-bg-tint)_0%,#ffffff_60%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,var(--c-bg-tint)_0%,var(--c-bg)_60%)]" />
           <div className="grid-lines absolute inset-x-0 top-0 h-[420px] opacity-45" />
           <div className="glow-blue absolute -left-24 top-0 h-80 w-80" />
           <div className="glow-amber absolute right-0 top-24 h-72 w-72 opacity-70" />
@@ -98,7 +98,7 @@ export default function Beranda() {
                   Produk unggulan
                 </span>
               </div>
-              <MockupAplikasi mockup={unggulan.mockup} contoh />
+              <MockupAplikasi mockup={unggulan.mockup} />
               <p className="mt-5 text-center text-[13.5px] font-bold text-ink">
                 {unggulan.nama}
               </p>
@@ -174,8 +174,8 @@ export default function Beranda() {
           </div>
 
           <p className="reveal mt-8 text-center text-[12.5px] text-muted">
-            Harga di atas masih contoh. Angka final disepakati tertulis sebelum
-            pekerjaan dimulai.
+            Angka di atas adalah patokan awal. Harga final disepakati tertulis
+            sebelum pekerjaan dimulai.
           </p>
         </div>
       </section>
@@ -195,9 +195,9 @@ export default function Beranda() {
             }
           />
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {katalogPratinjau.map((app) => (
-              <KartuAplikasi key={app.slug} app={app} />
+          <div className="mt-12 grid gap-6 lg:grid-cols-2">
+            {katalogPratinjau.map((d) => (
+              <KartuDemo key={d.slug} demo={d} />
             ))}
           </div>
         </div>

@@ -227,7 +227,7 @@ export default function FormCustom() {
           </pre>
 
           {tersusun && (
-            <p className="mt-4 flex items-start gap-2 rounded-xl border border-good/30 bg-[color-mix(in_srgb,var(--color-good)_8%,transparent)] px-3.5 py-3 text-[12.5px] font-semibold text-ink">
+            <p className="mt-4 flex items-start gap-2 rounded-xl border border-good/30 bg-[color-mix(in_srgb,var(--c-good)_8%,transparent)] px-3.5 py-3 text-[12.5px] font-semibold text-ink">
               <Ikon nama="centang" ukuran={15} tebal={2.6} className="mt-0.5 flex-none text-good" />
               WhatsApp dibuka di tab baru. Tekan kirim di sana untuk mengirim.
             </p>

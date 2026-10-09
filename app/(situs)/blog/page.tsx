@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import CtaKontak from "@/components/CtaKontak";
 import KartuArtikel from "@/components/KartuArtikel";
 import PageHeader from "@/components/PageHeader";
-import { blog, site } from "@/lib/content";
+import { blog } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -26,11 +26,11 @@ export default function HalamanBlog() {
 
       <section className="section">
         <div className="shell">
-          {site.demo && (
+          {blog.artikel.some((a) => a.draft) && (
             <div className="reveal mb-10 flex items-start gap-3 rounded-[16px] border border-accent/35 bg-accent-soft px-5 py-4">
-              <span className="badge-contoh mt-0.5 bg-white">perhatian</span>
+              <span className="badge badge-accent mt-0.5">perhatian</span>
               <p className="text-[13.5px] leading-relaxed text-[#7c4a04]">
-                Ketiga artikel ini masih <strong>draft contoh</strong> dan belum
+                Ketiga artikel ini masih <strong>draft</strong> dan belum
                 ditulis serius. Ganti judul dan isinya di{" "}
                 <code className="font-mono">lib/content.ts</code> sebelum
                 dipublikasikan.

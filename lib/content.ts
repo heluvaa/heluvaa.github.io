@@ -92,8 +92,11 @@ export const site = {
   url: "https://heluvaa.github.io",
   /** Target pembeli — dipakai di copy section keunggulan. */
   target: "UMKM, sekolah, dan mahasiswa",
-  /** Set false setelah semua [ISI] diganti dan data demo dihapus. */
-  demo: true,
+  /**
+   * Set true kalau masih ada data yang belum nyata dan kamu mau
+   * peringatannya tampil di footer.
+   */
+  demo: false,
 } as const;
 
 export const nav = [
@@ -201,251 +204,217 @@ export const paketHarga = {
 } as const;
 
 /* ------------------------------------------------------------ */
-/*  KATALOG — semua demo: true. Ganti dengan produk sungguhan.   */
+/*  KATALOG — empat aplikasi yang demonya benar-benar bisa dibuka */
 /* ------------------------------------------------------------ */
 
+export type Demo = {
+  slug: string;
+  nama: string;
+  tagline: string;
+  kategori: string;
+  /** Dua kalimat, ditampilkan berurutan. */
+  deskripsi: [string, string];
+  /** Fitur utama yang tampil di kartu katalog. */
+  fitur: string[];
+  /** Harga jual app siap pakai. Ubah di sini saja. */
+  hargaMulai: string;
+  /** Halaman demo hidup. */
+  demoUrl: string;
+  /**
+   * Thumbnail di public/. Biarkan kosong kalau gambarnya belum siap —
+   * kartu otomatis memakai pratinjau yang dirender dari `mockup`.
+   */
+  thumbnail: string;
+  /** Pratinjau cadangan yang dirender jadi UI, bukan gambar. */
+  mockup: Mockup;
+  /** Pesan WhatsApp yang terisi otomatis saat tombol order ditekan. */
+  pesanOrder: string;
+};
+
 export const katalog = {
-  judul: "Katalog Aplikasi",
+  judul: "Empat aplikasi, semuanya bisa dicoba dulu",
   paragraf:
-    "Semuanya bisa dicoba dulu lewat demo sebelum kamu putuskan. Klik salah satu untuk melihat fitur lengkapnya.",
-  aplikasi: [
+    "Klik demonya dan pakai sendiri sebelum memutuskan. Semua tombol berfungsi, dan data yang kamu ubah tersimpan di browser ini.",
+  demo: [
     {
-      slug: "menu-digital-qr",
-      nama: "Katalog Menu Digital QR",
-      tagline: "Menu warung dan restoran yang dibuka lewat scan QR",
-      kategori: "Kuliner",
-      mulai: "Rp 300.000",
-      ringkas:
-        "Pelanggan tinggal scan QR di meja, menu langsung terbuka di HP. Tanpa pasang aplikasi, tanpa cetak ulang setiap harga berubah.",
+      slug: "menu-qr",
+      nama: "Menu Digital QR",
+      tagline: "Pesanan dari meja langsung masuk ke dapur",
+      kategori: "Kuliner & F&B",
       deskripsi: [
-        "Pelanggan mengarahkan kamera ke QR di meja, dan menu lengkap dengan foto serta harga langsung terbuka di browser mereka. Tidak perlu memasang apa pun.",
-        "Pemilik warung bisa mengubah nama menu, harga, dan ketersediaan sendiri tanpa perlu menghubungi siapa pun. Cocok untuk usaha yang menunya sering berubah mengikuti harga pasar.",
+        "Pelanggan memindai QR di meja, memilih menu, lalu mengirim pesanannya sendiri tanpa menunggu dilayani.",
+        "Pesanan muncul di papan dapur lengkap dengan nomor meja dan catatan, lalu statusnya digeser sampai selesai.",
       ],
       fitur: [
-        "QR per meja atau satu QR untuk seluruh kedai",
-        "Ubah menu dan harga sendiri, langsung berlaku",
-        "Tanda menu habis tanpa perlu hapus data",
-        "Kategori menu agar pelanggan cepat menemukan",
+        "QR per meja, dibuka lewat browser tanpa instal",
+        "Kategori menu, varian, dan penanda menu habis",
+        "Papan pesanan dapur dengan alur status",
+        "Kelola menu dan harga sendiri, langsung berlaku",
+        "Rekap pesanan harian dan total penjualan",
       ],
-      teknologi: ["HTML", "CSS", "JavaScript", "Static hosting"],
+      hargaMulai: "Rp350.000",
+      demoUrl: "/demo/menu-qr",
+      thumbnail: "",
       mockup: {
-        judul: "Menu Kedai Kopi",
+        judul: "Meja 4 — Kedai Sari Rasa",
         baris: [
-            { label: "Nasi Goreng Spesial", nilai: "Rp 15.000" },
-            { label: "Ayam Geprek Sambal Ijo", nilai: "Rp 13.000" },
-            { label: "Es Teh Manis", nilai: "Rp 5.000" },
-            { label: "Kerupuk Udang", nilai: "Rp 2.000" },
+          { label: "Nasi Goreng Spesial", nilai: "Rp 18.000" },
+          { label: "Ayam Geprek Sambal Ijo", nilai: "Rp 20.000" },
+          { label: "Es Teh Manis", nilai: "Rp 5.000" },
+          { label: "Es Jeruk Peras", nilai: "Rp 8.000" },
         ],
       },
-      demo: true,
+      pesanOrder:
+        "Halo, saya mau order aplikasi Menu Digital QR. Boleh dijelaskan paket dan prosesnya?",
     },
     {
-      slug: "kasir-stok-warung",
-      nama: "Kasir & Stok Warung",
-      tagline: "Catat penjualan dan stok harian dari HP",
-      kategori: "Kasir",
-      mulai: "Rp 350.000",
-      ringkas:
-        "Mencatat penjualan, belanja, dan stok dalam satu aplikasi sederhana. Laporan harian bisa dibaca dari HP tanpa perlu buka buku.",
+      slug: "booking-jasa",
+      nama: "Booking & Reservasi",
+      tagline: "Pelanggan pilih jadwalnya sendiri",
+      kategori: "Usaha Jasa",
       deskripsi: [
-        "Setiap transaksi dicatat dalam hitungan detik. Stok berkurang otomatis, jadi kamu tahu kapan harus kulakan sebelum barang di rak benar-benar kosong.",
-        "Di akhir hari, laporan penjualan dan laba tersusun sendiri. Tidak ada lagi menghitung uang kembalian dan menebak-nebak untung.",
+        "Halaman booking yang bisa ditempel di bio Instagram atau dibagikan lewat WhatsApp, lengkap dengan slot jam yang tidak bisa bentrok.",
+        "Pemilik melihat jadwal tiap staf per hari, mengonfirmasi kedatangan, dan membaca laporan pendapatan per staf dan per layanan.",
       ],
       fitur: [
-        "Input transaksi cepat dengan tombol angka besar",
-        "Stok berkurang otomatis tiap penjualan",
-        "Peringatan barang hampir habis",
-        "Rekap penjualan harian dan bulanan",
+        "Slot jam otomatis menyesuaikan durasi layanan",
+        "Pilih staf, tanggal, dan jam tanpa bentrok jadwal",
+        "Catatan khusus per pelanggan",
+        "Kelola antrian: konfirmasi, selesai, atau batalkan",
+        "Laporan pendapatan per staf dan layanan terlaris",
       ],
-      teknologi: ["HTML", "CSS", "JavaScript", "Local storage"],
+      hargaMulai: "Rp450.000",
+      demoUrl: "/demo/booking-jasa",
+      thumbnail: "",
       mockup: {
-        judul: "Rekap Hari Ini",
+        judul: "Jadwal hari ini — Cukur & Co",
         baris: [
-            { label: "Penjualan", nilai: "Rp 1.240.000" },
-            { label: "Laba kotor", nilai: "Rp 380.000" },
-            { label: "Transaksi", nilai: "87 kali" },
-            { label: "Stok menipis", nilai: "3 item" },
+          { label: "Rizky · Cukur Rambut Dewasa", nilai: "10:00" },
+          { label: "Dimas · Cukur + Cuci Blow", nilai: "10:30" },
+          { label: "Sari · Cukur + Creambath", nilai: "13:00" },
+          { label: "Rizky · Cukur Rambut Dewasa", nilai: "15:30" },
         ],
       },
-      demo: true,
+      pesanOrder:
+        "Halo, saya mau order aplikasi Booking & Reservasi untuk usaha jasa saya. Boleh dijelaskan paket dan prosesnya?",
     },
     {
-      slug: "toko-online-whatsapp",
-      nama: "Toko Online Sederhana",
-      tagline: "Katalog produk yang ordernya langsung masuk WhatsApp",
+      slug: "toko-online",
+      nama: "Toko Online + Checkout WhatsApp",
+      tagline: "Katalog produk yang ordernya masuk ke WhatsApp",
       kategori: "Penjualan",
-      mulai: "Rp 400.000",
-      ringkas:
-        "Punya halaman produk yang bisa dibagikan ke pelanggan, dan setiap pesanan langsung masuk WhatsApp dengan rincian sudah terisi.",
       deskripsi: [
-        "Kamu punya satu tautan yang bisa dibagikan di status, bio, atau grup. Pelanggan melihat produk beserta fotonya, lalu memilih varian dan jumlah.",
-        "Saat menekan tombol pesan, WhatsApp terbuka dengan rincian pesanan yang sudah tertulis rapi. Kamu tinggal membalas dan mengonfirmasi.",
+        "Katalog produk dengan varian, stok, dan keranjang yang menghitung ongkir serta minimum pesanan secara otomatis.",
+        "Begitu pelanggan menekan pesan, WhatsApp terbuka dengan rincian lengkap. Pemilik tinggal membalas dan mengonfirmasi.",
       ],
       fitur: [
-        "Halaman produk dengan foto dan varian",
-        "Keranjang sederhana tanpa perlu akun",
-        "Pesanan terkirim ke WhatsApp lengkap dengan rincian",
-        "Tautan bisa dibagikan ke mana saja",
+        "Katalog produk dengan varian dan harga berbeda",
+        "Keranjang, minimum pesanan, dan gratis ongkir",
+        "Checkout langsung ke WhatsApp dengan rincian terisi",
+        "Kelola produk, harga, dan stok sendiri",
+        "Daftar pesanan dengan status sampai selesai",
       ],
-      teknologi: ["HTML", "CSS", "JavaScript", "WhatsApp deep link"],
+      hargaMulai: "Rp400.000",
+      demoUrl: "/demo/toko-online",
+      thumbnail: "",
       mockup: {
-        judul: "Katalog Produk",
+        judul: "Dapur Bu Nia",
         baris: [
-            { label: "Kaos Polos Premium", nilai: "Rp 75.000" },
-            { label: "Totebag Kanvas", nilai: "Rp 55.000" },
-            { label: "Topi Baseball", nilai: "Rp 45.000" },
-            { label: "Di keranjang", nilai: "2 item" },
+          { label: "Risoles Mayo (Isi 20)", nilai: "Rp 85.000" },
+          { label: "Dimsum Ayam (Isi 25)", nilai: "Rp 65.000" },
+          { label: "Brownies Kukus", nilai: "Rp 60.000" },
+          { label: "Ayam Ungkep 1 kg", nilai: "Rp 70.000" },
         ],
       },
-      demo: true,
+      pesanOrder:
+        "Halo, saya mau order aplikasi Toko Online untuk usaha saya. Boleh dijelaskan paket dan prosesnya?",
     },
     {
-      slug: "absensi-sekolah-qr",
-      nama: "Absensi Sekolah QR",
-      tagline: "Absensi siswa dan guru dengan scan kartu QR",
-      kategori: "Sekolah",
-      mulai: "Rp 450.000",
-      ringkas:
-        "Guru dan siswa cukup menempelkan kartu ke kamera. Kehadiran tercatat rapi dan rekapnya bisa diunduh untuk laporan.",
+      slug: "admin-sekolah",
+      nama: "Administrasi Sekolah",
+      tagline: "Absensi, nilai, dan SPP dalam satu tempat",
+      kategori: "Pendidikan",
       deskripsi: [
-        "Sekolah tidak perlu lagi mengumpulkan daftar hadir kertas. Setiap scan langsung tercatat dengan waktu dan keterangan terlambat.",
-        "Rekap per kelas dan per bulan bisa diunduh sebagai berkas untuk keperluan administrasi maupun laporan ke orang tua.",
+        "Absensi harian per kelas, input nilai yang langsung menghitung rata-rata dan predikat, sampai rapor yang siap dicetak.",
+        "Tagihan SPP tiap bulan tercatat rapi dengan rekap tunggakan, jadi menagih wali murid tidak lagi mencari di buku.",
       ],
       fitur: [
-        "Scan QR atau barcode dari kartu siswa",
-        "Penanda otomatis untuk yang terlambat",
-        "Rekap per kelas, per bulan, siap diunduh",
-        "Riwayat kehadiran tiap siswa",
+        "Absensi harian per kelas dan rekap kehadiran",
+        "Input nilai, rata-rata, dan predikat otomatis",
+        "Rapor lengkap dengan peringkat kelas",
+        "Tagihan SPP bulanan dan rekap tunggakan",
+        "Ringkasan untuk kepala sekolah dalam satu layar",
       ],
-      teknologi: ["HTML", "CSS", "JavaScript", "QR scanner"],
+      hargaMulai: "Rp1.250.000",
+      demoUrl: "/demo/admin-sekolah",
+      thumbnail: "",
       mockup: {
-        judul: "Kelas VII-A",
+        judul: "VII-A — hari ini",
         baris: [
-            { label: "Hadir", nilai: "32 siswa" },
-            { label: "Terlambat", nilai: "3 siswa" },
-            { label: "Izin", nilai: "2 siswa" },
-            { label: "Tanpa keterangan", nilai: "1 siswa" },
+          { label: "Hadir", nilai: "32 siswa" },
+          { label: "Sakit", nilai: "2 siswa" },
+          { label: "Izin", nilai: "1 siswa" },
+          { label: "Alpa", nilai: "1 siswa" },
         ],
       },
-      demo: true,
+      pesanOrder:
+        "Halo, saya mau order aplikasi Administrasi Sekolah untuk sekolah/madrasah kami. Boleh dijelaskan paket dan prosesnya?",
     },
-    {
-      slug: "undangan-digital",
-      nama: "Undangan Digital",
-      tagline: "Undangan acara online dengan tautan yang bisa dibagikan",
-      kategori: "Lainnya",
-      mulai: "Rp 300.000",
-      ringkas:
-        "Undangan berbentuk halaman web yang dibuka dari HP. Bisa memuat detail acara, galeri foto, dan lokasi yang langsung tersambung ke peta.",
-      deskripsi: [
-        "Cukup kirim satu tautan ke keluarga dan teman. Mereka membuka undanganmu di HP, lengkap dengan hitung mundur menuju hari acara.",
-        "Bagian lokasi tersambung ke peta, jadi tamu tidak perlu lagi bertanya arah. Kamu juga bisa melihat siapa saja yang sudah membuka undangan.",
-      ],
-      fitur: [
-        "Hitung mundur menuju hari acara",
-        "Galeri foto dan cerita singkat",
-        "Lokasi yang tersambung langsung ke peta",
-        "Rekap tamu yang membuka undangan",
-      ],
-      teknologi: ["HTML", "CSS", "JavaScript"],
-      mockup: {
-        judul: "Undangan Pernikahan",
-        baris: [
-            { label: "Akad nikah", nilai: "09.00 WIB" },
-            { label: "Resepsi", nilai: "11.00 WIB" },
-            { label: "Lokasi", nilai: "Gedung Serbaguna" },
-            { label: "Tamu membuka", nilai: "128 orang" },
-        ],
-      },
-      demo: true,
-    },
-    {
-      slug: "dashboard-iot",
-      nama: "Dashboard Monitoring IoT",
-      tagline: "Pantau alat dan sensor dari jarak jauh",
-      kategori: "IoT",
-      mulai: "Menyesuaikan",
-      ringkas:
-        "Untuk kebutuhan pemantauan: suhu, kelembapan, daya, atau status alat yang dibaca dari sensor dan ditampilkan di satu dashboard.",
-      deskripsi: [
-        "Sensor membaca kondisi di lapangan lalu mengirimkannya ke dashboard yang bisa kamu buka dari HP atau komputer, dari mana saja.",
-        "Kalau nilai yang dibaca keluar dari batas wajar, sistem bisa memberi peringatan sehingga masalah ditangani sebelum membesar.",
-      ],
-      fitur: [
-        "Pembacaan sensor secara berkala",
-        "Grafik riwayat untuk melihat tren",
-        "Peringatan otomatis saat nilai di luar batas",
-        "Pengaturan batas wajar per sensor",
-      ],
-      teknologi: ["Sensor", "Mikrokontroler", "Web dashboard"],
-      mockup: {
-        jenis: "chart",
-        judul: "Gudang — Sensor 01",
-        baris: [
-            { label: "Suhu", nilai: "28 °C", bar: 62 },
-            { label: "Kelembapan", nilai: "64 %", bar: 64 },
-            { label: "Daya", nilai: "420 W", bar: 42 },
-            { label: "Status", nilai: "Normal", bar: 88 },
-        ],
-      },
-      demo: true,
-    },
-  ] as Aplikasi[],
+  ] as Demo[],
 } as const;
 
 /* ------------------------------------------------------------ */
-/*  PORTOFOLIO — semua demo: true. Isi dengan karya aslimu.       */
+/*  PORTOFOLIO — diambil dari demo yang benar-benar berjalan      */
 /* ------------------------------------------------------------ */
 
 export const portofolio = {
   judul: "Portofolio",
   paragraf:
-    "Sebagian pekerjaan yang sudah dikerjakan. Semua masih contoh — ganti dengan proyek aslimu sendiri.",
+    "Empat aplikasi di bawah ini bukan gambar mockup. Semuanya bisa kamu buka dan pakai sekarang.",
   karya: [
     {
-      judul: "Menu Digital untuk Kedai Kopi",
+      judul: "Menu Digital QR untuk Kedai Sari Rasa",
       kategori: "Kuliner",
       tahun: "2026",
       ringkas:
-        "Menu QR untuk kedai dengan 40 item, dibuka rata-rata 300 kali setiap minggu oleh pelanggan.",
-      tags: ["Menu QR", "Static site"],
-      url: "",
-      demo: true,
+        "Pesan dari meja lewat QR, papan pesanan dapur, dan panel kelola menu dalam satu aplikasi.",
+      tags: ["Menu QR", "Papan pesanan"],
+      url: "/demo/menu-qr",
+      demo: false,
     },
     {
-      judul: "Sistem Kasir Toko Kelontong",
-      kategori: "Kasir",
+      judul: "Booking & Reservasi Cukur & Co",
+      kategori: "Usaha Jasa",
       tahun: "2026",
       ringkas:
-        "Pencatatan penjualan dan stok harian, menggantikan pencatatan manual di buku tulis.",
-      tags: ["Kasir", "Laporan harian"],
-      url: "",
-      demo: true,
+        "Pelanggan memilih jadwal sendiri, pemilik mengelola antrian empat staf dan membaca laporan pendapatan.",
+      tags: ["Booking", "Antrian"],
+      url: "/demo/booking-jasa",
+      demo: false,
     },
     {
-      judul: "Absensi QR untuk Sekolah Menengah",
-      kategori: "Sekolah",
-      tahun: "2025",
+      judul: "Toko Online Dapur Bu Nia",
+      kategori: "Penjualan",
+      tahun: "2026",
       ringkas:
-        "Absensi harian 400 siswa dengan rekap bulanan yang siap diunduh untuk administrasi.",
-      tags: ["Absensi", "QR"],
-      url: "",
-      demo: true,
+        "Katalog bervarian, keranjang dengan hitungan ongkir, dan checkout yang mengirim rincian ke WhatsApp.",
+      tags: ["Katalog", "Checkout WhatsApp"],
+      url: "/demo/toko-online",
+      demo: false,
     },
     {
-      judul: "Monitoring Suhu Gudang",
-      kategori: "IoT",
-      tahun: "2025",
+      judul: "Administrasi MTs Nurul Hikmah",
+      kategori: "Pendidikan",
+      tahun: "2026",
       ringkas:
-        "Sensor suhu dan kelembapan yang mengirim data ke dashboard, lengkap dengan peringatan batas wajar.",
-      tags: ["IoT", "Dashboard"],
-      url: "",
-      demo: true,
+        "Absensi per kelas, nilai dengan predikat otomatis, rapor berperingkat, dan tagihan SPP bulanan.",
+      tags: ["Absensi", "Rapor", "SPP"],
+      url: "/demo/admin-sekolah",
+      demo: false,
     },
   ] as Karya[],
 } as const;
 
-/* ------------------------------------------------------------ */
 /*  BLOG — semua draft: true. Tulis ulang dengan gayamu sendiri.  */
 /* ------------------------------------------------------------ */
 

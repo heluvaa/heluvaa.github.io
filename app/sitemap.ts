@@ -15,11 +15,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: (i === 0 ? "weekly" : "monthly") as "weekly" | "monthly",
       priority: i === 0 ? 1 : 0.8,
     })),
-    ...katalog.aplikasi.map((a) => ({
-      url: `${site.url}/katalog/${a.slug}/`,
+    ...katalog.demo.map((d) => ({
+      url: `${site.url}${d.demoUrl}/`,
       lastModified: sekarang,
       changeFrequency: "monthly" as const,
-      priority: 0.7,
+      priority: 0.9,
     })),
     ...blog.artikel.map((a) => ({
       url: `${site.url}/blog/${a.slug}/`,
