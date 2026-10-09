@@ -155,7 +155,7 @@ export const keunggulan = {
 export const paketHarga = {
   judul: "Paket Harga",
   paragraf:
-    "Tiga cara mulai. Semua harga di bawah adalah contoh — angka final tergantung kebutuhan dan tingkat kesulitan.",
+    "Tiga cara mulai. Semua harga di bawah adalah patokan awal — angka final tergantung kebutuhan dan tingkat kesulitan.",
   paket: [
     {
       id: "siap-pakai",
